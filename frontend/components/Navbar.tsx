@@ -18,7 +18,7 @@ export default function Navbar() {
           {/* Logo */}
           <div className="shrink-0 flex items-center">
             <Link href="/">
-              <span className="text-2xl font-bold text-blue-600">✈ ArashTicket</span>
+              <span className="text-2xl font-bold text-sky-600">✈ ArashTicket</span>
             </Link>
           </div>
 
@@ -28,7 +28,7 @@ export default function Navbar() {
               <Link
                 key={item.id}
                 href={item.route}
-                className="text-gray-700 hover:text-blue-600 font-medium transition cursor-pointer"
+                className="text-gray-700 hover:text-sky-600 font-medium transition cursor-pointer"
               >
                 {item.label}
               </Link>
@@ -72,7 +72,7 @@ export default function Navbar() {
             <Link
               key={item.id}
               href={item.route}
-              className="block text-gray-700 hover:text-blue-600 font-medium px-3 py-2 rounded-md cursor-pointer"
+              className="block text-gray-700 hover:text-sky-600 font-medium px-3 py-2 rounded-md cursor-pointer"
             >
               {item.label}
             </Link>
