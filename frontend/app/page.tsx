@@ -1,10 +1,10 @@
-import Spinner from "@/components/Spinner";
+import CustomTitle from "@/components/CustomTitle";
 import React from "react";
 
 const HomePage = () => {
   return (
-    <div className="text-red-700 text-3xl font-bold">
-      <Spinner />
+    <div className="container mx-auto px-4">
+      <CustomTitle title="Welcome to ArashTicket!" />
     </div>
   );
 };
