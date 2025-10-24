@@ -1,22 +1,21 @@
-'use client';
+"use client";
 
-import { Ticket } from '@/types/types';
-import Link from 'next/link';
-import {
-  MdOutlinePageview,
-  MdOutlineEdit,
-  MdOutlineDelete,
-} from 'react-icons/md';
-import moment from 'moment';
+import { Ticket } from "@/types/types";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { MdOutlinePageview, MdOutlineEdit, MdOutlineDelete } from "react-icons/md";
+import moment from "moment";
 
 interface Props {
   ticketsData: Ticket[];
 }
 
 const TicketsContent = ({ ticketsData }: Props) => {
+  const router = useRouter();
+
   return (
-    <div className="w-full bg-white rounded-xl shadow-md overflow-hidden">
-      {/* Desktop / Tablet Table View */}
+    <div className="w-full overflow-hidden">
+      {/* ---------------- Desktop / Tablet Table ---------------- */}
       <div className="hidden md:block overflow-x-auto">
         <table className="w-full">
           <thead className="bg-linear-to-r from-sky-600 to-blue-600 text-white text-sm lg:text-base">
@@ -35,25 +34,27 @@ const TicketsContent = ({ ticketsData }: Props) => {
             {ticketsData.map((ticket) => (
               <tr
                 key={ticket.id}
-                className="border-b hover:bg-sky-50 transition-all duration-200"
+                className="border-b hover:bg-sky-50 transition-all duration-200 cursor-pointer"
+                onClick={() => router.push(`/tickets/${ticket.id}`)}
               >
                 <td className="text-center py-2 px-4">{ticket.id}</td>
-                <td className="text-center py-2 px-4 font-medium">
-                  {ticket.passengerName}
-                </td>
+                <td className="text-center py-2 px-4 font-medium">{ticket.passengerName}</td>
                 <td className="text-center py-2 px-4">{ticket.passengerSSN}</td>
                 <td className="text-center py-2 px-4">{ticket.from}</td>
                 <td className="text-center py-2 px-4">{ticket.to}</td>
                 <td className="text-center py-2 px-4 font-semibold text-sky-700">
-                  {ticket.price.toLocaleString('da-DK', {
-                    style: 'currency',
-                    currency: 'DKK',
+                  {ticket.price.toLocaleString("da-DK", {
+                    style: "currency",
+                    currency: "DKK",
                   })}
                 </td>
                 <td className="text-center py-2 px-4">
-                  {moment(ticket.time + 'Z').format('YYYY-MM-DD HH:mm')}
+                  {moment(ticket.time + "Z").format("YYYY-MM-DD HH:mm")}
                 </td>
-                <td className="text-center py-2 px-4">
+                <td
+                  className="text-center py-2 px-4"
+                  onClick={(e) => e.stopPropagation()} // prevent row click when clicking buttons
+                >
                   <div className="flex justify-center items-center gap-2">
                     <Link
                       href={`/tickets/${ticket.id}`}
@@ -81,41 +82,36 @@ const TicketsContent = ({ ticketsData }: Props) => {
         </table>
       </div>
 
-      {/* Mobile Card View */}
+      {/* ---------------- Mobile Card View ---------------- */}
       <div className="block md:hidden p-2 space-y-4">
         {ticketsData.map((ticket) => (
-          <div
-            key={ticket.id}
-            className="bg-sky-50 border border-sky-200 rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow duration-200"
-          >
-            <div className="flex justify-between items-center border-b border-sky-200 pb-2 mb-2">
-              <span className="font-semibold text-sky-700">
-                {ticket.passengerName}
-              </span>
-              <span className="text-xs text-gray-500">
-                #{ticket.id}
-              </span>
-            </div>
-            <div className="text-sm text-gray-700 space-y-1">
-              <p>
-                <span className="font-semibold">From:</span> {ticket.from}
-              </p>
-              <p>
-                <span className="font-semibold">To:</span> {ticket.to}
-              </p>
-              <p>
-                <span className="font-semibold">Price:</span>{' '}
-                {ticket.price.toLocaleString('da-DK', {
-                  style: 'currency',
-                  currency: 'DKK',
-                })}
-              </p>
-              <p>
-                <span className="font-semibold">Time:</span>{' '}
-                {moment(ticket.time + 'Z').format('YYYY-MM-DD HH:mm')}
-              </p>
-            </div>
-            <div className="flex justify-end items-center gap-2 mt-3">
+          <div key={ticket.id}>
+            <Link href={`/tickets/${ticket.id}`}>
+              <div className="bg-sky-50 border border-sky-200 rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer">
+                <div className="flex justify-between items-center border-b border-sky-200 pb-2 mb-2">
+                  <span className="font-semibold text-sky-700">{ticket.passengerName}</span>
+                  <span className="text-xs text-gray-500">#{ticket.id}</span>
+                </div>
+                <div className="text-sm text-gray-700 space-y-1">
+                  <p>
+                    <span className="font-semibold">From:</span> {ticket.from}
+                  </p>
+                  <p>
+                    <span className="font-semibold">To:</span> {ticket.to}
+                  </p>
+                  <p>
+                    <span className="font-semibold">Price:</span>{" "}
+                    {ticket.price.toLocaleString("da-DK", { style: "currency", currency: "DKK" })}
+                  </p>
+                  <p>
+                    <span className="font-semibold">Time:</span>{" "}
+                    {moment(ticket.time + "Z").format("YYYY-MM-DD HH:mm")}
+                  </p>
+                </div>
+              </div>
+            </Link>
+            {/* Action Buttons */}
+            <div className="flex justify-end items-center gap-2 mt-2 px-1">
               <Link
                 href={`/tickets/${ticket.id}`}
                 className="bg-green-600 hover:bg-green-700 text-white p-2 rounded-md"

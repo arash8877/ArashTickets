@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export default function NotFound() {
   return (
-   <main className="relative flex flex-col items-center justify-center h-[calc(100vh-4rem)] ...">
+    <main className="relative flex flex-col items-center justify-center h-[calc(100vh-4rem)] ...">
       <div className="absolute top-0 left-0 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
       <div className="absolute bottom-0 right-0 w-80 h-80 bg-sky-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse delay-200"></div>
 
@@ -62,15 +62,14 @@ export default function NotFound() {
 
       {/* Floating Plane Animation */}
       <motion.div
-        initial={{ x: "-50vw" }}
-        animate={{ x: "50vw" }}
+        initial={{ x: "-50%", opacity: 0 }}
+        animate={{ x: "110%", opacity: 1 }}
+        exit={{ opacity: 0 }}
         transition={{
-          repeat: Infinity,
-          repeatType: "loop",
-          duration: 8,
+          duration: 6,
           ease: "easeInOut",
         }}
-        className="absolute bottom-16 text-4xl opacity-70"
+        className="absolute bottom-16 text-4xl"
       >
         ✈️
       </motion.div>

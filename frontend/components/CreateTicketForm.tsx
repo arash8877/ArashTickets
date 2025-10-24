@@ -21,7 +21,7 @@ const CreateTicketForm = () => {
   const onSubmitFunction = async (data: TicketCreateDto) => {
     try {
       setLoading(true);
-      // await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/create`, data);
+      await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/create`, data);
       toast.success("Ticket created successfully!");
       router.push("/tickets");
       router.refresh();
