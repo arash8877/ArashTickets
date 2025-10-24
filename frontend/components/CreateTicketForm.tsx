@@ -1,28 +1,33 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
-import { TicketCreateDto } from '@/types/types';
-import Spinner from './Spinner';
-import axios from 'axios';
-import toast from 'react-hot-toast';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { TicketCreateDto } from "@/types/types";
+import Spinner from "./Spinner";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const CreateTicketForm = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<TicketCreateDto>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<TicketCreateDto>();
 
   const onSubmitFunction = async (data: TicketCreateDto) => {
     try {
       setLoading(true);
       await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/create`, data);
-      toast.success('Ticket created successfully!');
-      router.push('/tickets');
+      toast.success("🎉 Ticket created successfully!");
+      router.push("/tickets");
       router.refresh();
     } catch (error) {
       console.error(error);
-      toast.error('Error creating new ticket.');
+      toast.error("❌ Error creating new ticket.");
     } finally {
       setLoading(false);
     }
@@ -34,26 +39,30 @@ const CreateTicketForm = () => {
       <form
         onSubmit={handleSubmit(onSubmitFunction)}
         className={`bg-white shadow-lg rounded-2xl p-6 w-full max-w-lg mx-auto mt-6 transition-all duration-300 ${
-          loading ? 'blur-sm pointer-events-none' : ''
+          loading ? "blur-sm pointer-events-none" : ""
         }`}
         noValidate
       >
-        <h2 className="text-2xl font-semibold text-sky-800 mb-6 text-center">🎟️ Create New Ticket</h2>
+        <h2 className="text-2xl font-semibold text-sky-800 mb-6 text-center">
+          🎟️ Create New Ticket
+        </h2>
 
         {/* Ticket Time */}
         <div className="mb-4">
           <label className="block text-slate-600 mb-1">Ticket Time</label>
           <input
             type="datetime-local"
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-sky-500 outline-none"
-            {...register('time', {
-              required: 'Ticket time is required',
+            className={`w-full border ${
+              errors.time ? "border-red-400" : "border-gray-300"
+            } rounded-lg px-3 py-2 focus:ring-2 focus:ring-sky-500 outline-none`}
+            {...register("time", {
+              required: "Ticket time is required",
               valueAsDate: true,
+              validate: (value) =>
+                (value && new Date(value) > new Date()) || "Time must be in the future",
             })}
           />
-          {errors.time && (
-            <p className="text-red-500 text-sm mt-1">{errors.time.message}</p>
-          )}
+          {errors.time && <p className="text-red-500 text-sm mt-1">{errors.time.message}</p>}
         </div>
 
         {/* Passenger Name */}
@@ -62,8 +71,24 @@ const CreateTicketForm = () => {
           <input
             type="text"
             autoComplete="off"
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-sky-500 outline-none"
-            {...register('passengerName', { required: 'Passenger name is required' })}
+            className={`w-full border ${
+              errors.passengerName ? "border-red-400" : "border-gray-300"
+            } rounded-lg px-3 py-2 focus:ring-2 focus:ring-sky-500 outline-none`}
+            {...register("passengerName", {
+              required: "Passenger name is required",
+              minLength: {
+                value: 3,
+                message: "Name must be at least 3 characters",
+              },
+              maxLength: {
+                value: 50,
+                message: "Name must be under 50 characters",
+              },
+              pattern: {
+                value: /^[A-Za-z\s]+$/,
+                message: "Only letters and spaces allowed",
+              },
+            })}
           />
           {errors.passengerName && (
             <p className="text-red-500 text-sm mt-1">{errors.passengerName.message}</p>
@@ -76,10 +101,14 @@ const CreateTicketForm = () => {
           <input
             type="number"
             autoComplete="off"
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-sky-500 outline-none"
-            {...register('passengerSSN', {
-              required: 'Passenger SSN is required',
+            className={`w-full border ${
+              errors.passengerSSN ? "border-red-400" : "border-gray-300"
+            } rounded-lg px-3 py-2 focus:ring-2 focus:ring-sky-500 outline-none`}
+            {...register("passengerSSN", {
+              required: "Passenger SSN is required",
               valueAsNumber: true,
+              min: { value: 1000000000, message: "Invalid SSN" },
+              max: { value: 9999999999, message: "Invalid SSN" },
             })}
           />
           {errors.passengerSSN && (
@@ -93,12 +122,15 @@ const CreateTicketForm = () => {
           <input
             type="text"
             autoComplete="off"
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-sky-500 outline-none"
-            {...register('from', { required: 'Departure location is required' })}
+            className={`w-full border ${
+              errors.from ? "border-red-400" : "border-gray-300"
+            } rounded-lg px-3 py-2 focus:ring-2 focus:ring-sky-500 outline-none`}
+            {...register("from", {
+              required: "Departure location is required",
+              minLength: { value: 2, message: "Too short" },
+            })}
           />
-          {errors.from && (
-            <p className="text-red-500 text-sm mt-1">{errors.from.message}</p>
-          )}
+          {errors.from && <p className="text-red-500 text-sm mt-1">{errors.from.message}</p>}
         </div>
 
         {/* To */}
@@ -107,12 +139,18 @@ const CreateTicketForm = () => {
           <input
             type="text"
             autoComplete="off"
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-sky-500 outline-none"
-            {...register('to', { required: 'Destination is required' })}
+            className={`w-full border ${
+              errors.to ? "border-red-400" : "border-gray-300"
+            } rounded-lg px-3 py-2 focus:ring-2 focus:ring-sky-500 outline-none`}
+            {...register("to", {
+              required: "Destination is required",
+              minLength: { value: 2, message: "Too short" },
+              validate: (value, formValues) =>
+                value.toLowerCase() !== formValues.from?.toLowerCase() ||
+                "Destination cannot be the same as departure",
+            })}
           />
-          {errors.to && (
-            <p className="text-red-500 text-sm mt-1">{errors.to.message}</p>
-          )}
+          {errors.to && <p className="text-red-500 text-sm mt-1">{errors.to.message}</p>}
         </div>
 
         {/* Price */}
@@ -121,31 +159,33 @@ const CreateTicketForm = () => {
           <input
             type="number"
             autoComplete="off"
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-sky-500 outline-none"
-            {...register('price', {
-              required: 'Price is required',
+            className={`w-full border ${
+              errors.price ? "border-red-400" : "border-gray-300"
+            } rounded-lg px-3 py-2 focus:ring-2 focus:ring-sky-500 outline-none`}
+            {...register("price", {
+              required: "Price is required",
               valueAsNumber: true,
+              min: { value: 1, message: "Price must be greater than 0" },
+              max: { value: 100000, message: "Price too high" },
             })}
           />
-          {errors.price && (
-            <p className="text-red-500 text-sm mt-1">{errors.price.message}</p>
-          )}
+          {errors.price && <p className="text-red-500 text-sm mt-1">{errors.price.message}</p>}
         </div>
 
         {/* Buttons */}
         <div className="flex justify-between items-center">
-          <button
-            type="submit"
-            className="bg-linear-to-r from-sky-600 to-blue-600 hover:from-sky-700 hover:to-blue-700 text-white px-6 py-2 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
-          >
-            Submit
-          </button>
           <button
             type="button"
             onClick={() => reset()}
             className="bg-linear-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white px-6 py-2 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
           >
             Reset
+          </button>
+          <button
+            type="submit"
+            className="bg-linear-to-r from-sky-600 to-blue-600 hover:from-sky-700 hover:to-blue-700 text-white px-6 py-2 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+          >
+            Submit
           </button>
         </div>
       </form>
