@@ -8,6 +8,7 @@ import { Ticket } from "@/types/types";
 import Link from "next/link";
 import { AiOutlinePlusSquare } from "react-icons/ai";
 import TicketsContent from "@/components/TicketContent";
+import SearchBox from "@/components/SearchBox";
 
 interface Props {
   searchParams: Promise<{
@@ -52,11 +53,10 @@ const TicketsPage = ({ searchParams }: Props) => {
   const query = params?.q?.toLowerCase() ?? "";
 
   const filteredTickets = query
-    ? dummyTickets.filter((ticket) =>
-        ticket.passengerName.toLowerCase().includes(query)
-      )
+    ? dummyTickets.filter((ticket) => ticket.passengerName.toLowerCase().includes(query))
     : dummyTickets;
 
+  // ---------------------- JSX Return ---------------------- //
   return (
     <div className="page-container flex flex-col gap-6">
       {/* Top Controls */}
@@ -66,37 +66,34 @@ const TicketsPage = ({ searchParams }: Props) => {
           <Breadcrumb items={[{ label: "Tickets", route: "/tickets" }]} />
         </div>
 
-<Link
-  href="/tickets/create"
-  className="flex items-center justify-center gap-2 
+        <Link
+          href="/tickets/create"
+          className="flex items-center justify-center gap-2 
              bg-linear-to-r from-sky-600 to-blue-600 
              text-white px-3 sm:px-5 md:px-6 py-2.5 
              rounded-xl shadow-md 
              hover:shadow-lg hover:from-sky-700 hover:to-blue-700 
              transition-all duration-300 transform hover:-translate-y-1 
              active:scale-95"
->
-  <AiOutlinePlusSquare className="text-xl sm:text-2xl md:text-3xl" />
-  <span className="text-base sm:text-lg md:text-xl font-semibold whitespace-nowrap">
-    Create Ticket
-  </span>
-</Link>
-
+        >
+          <AiOutlinePlusSquare className="text-xl sm:text-2xl md:text-3xl" />
+          <span className="text-base sm:text-lg md:text-xl font-semibold whitespace-nowrap">
+            Create Ticket
+          </span>
+        </Link>
       </div>
 
       {/* Page Title */}
-      <CustomTitle
-        title="Tickets Overview"
-      />
+      <CustomTitle title="Tickets Overview" />
+
+      <SearchBox />
 
       {/* Tickets Table */}
-      <div className="bg-white rounded-xl p-6 overflow-x-auto">
+      <div className="bg-white rounded-xl py-6 overflow-x-auto">
         {filteredTickets.length ? (
           <TicketsContent ticketsData={filteredTickets} />
         ) : (
-          <p className="text-center text-gray-500 py-10 text-lg">
-            No tickets found 😔
-          </p>
+          <p className="text-center text-gray-500 py-10 text-lg">No tickets found 😔</p>
         )}
       </div>
     </div>
