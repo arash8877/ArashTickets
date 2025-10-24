@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 const HomePage = () => {
   return (
-    <main className="relative h-[calc(100vh-4rem)] flex flex-col justify-center items-center overflow-hidden bg-gradient-to-b from-sky-50 via-white to-sky-100 text-gray-800">
+    <main className="relative h-[calc(100vh-4rem)] flex flex-col justify-center items-center overflow-hidden bg-linear-to-b from-sky-50 via-white to-sky-100 text-gray-800">
       {/* Decorative Background Gradient Blobs */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-sky-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
       <div className="absolute bottom-10 right-0 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse delay-300"></div>
@@ -17,7 +17,7 @@ const HomePage = () => {
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-4xl sm:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-blue-500 drop-shadow-lg"
+          className="text-4xl sm:text-6xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-sky-600 to-blue-500 drop-shadow-lg"
         >
           Welcome to ArashTicket
         </motion.h1>
