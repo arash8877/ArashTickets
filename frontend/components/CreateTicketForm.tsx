@@ -21,13 +21,13 @@ const CreateTicketForm = () => {
   const onSubmitFunction = async (data: TicketCreateDto) => {
     try {
       setLoading(true);
-      await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/create`, data);
-      toast.success("🎉 Ticket created successfully!");
+      // await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/create`, data);
+      toast.success("Ticket created successfully!");
       router.push("/tickets");
       router.refresh();
     } catch (error) {
       console.error(error);
-      toast.error("❌ Error creating new ticket.");
+      toast.error("Failed to create ticket");
     } finally {
       setLoading(false);
     }
@@ -49,7 +49,7 @@ const CreateTicketForm = () => {
 
         {/* Ticket Time */}
         <div className="mb-4">
-          <label className="block text-slate-600 mb-1">Ticket Time</label>
+          <label className="block text-slate-600 mb-1">Departure</label>
           <input
             type="datetime-local"
             className={`w-full border ${

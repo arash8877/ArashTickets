@@ -9,3 +9,35 @@
            lg:mx-8 lg:my-6 lg:p-8;
   }
 }
+
+/* 🔥 Toast Animation for react-hot-toast */
+@keyframes toast-slide-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes toast-slide-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+}
+
+/* Apply animation to react-hot-toast */
+.react-hot-toast {
+  animation: toast-slide-in 0.35s ease-out forwards;
+}
+
+.react-hot-toast-exit {
+  animation: toast-slide-out 0.3s ease-in forwards;
+}
