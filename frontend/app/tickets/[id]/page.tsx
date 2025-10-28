@@ -3,28 +3,32 @@ import Breadcrumb from "@/components/Breadcrumb";
 import CustomTitle from "@/components/CustomTitle";
 import { Ticket } from "@/types/types";
 import { notFound } from "next/navigation";
-import React from "react";
 import TicketDetails from "@/components/TicketDetails";
+import { dummyTickets } from "@/app/data/dummyTickets";
 
-async function getTicket(id: string) {
-  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/${id}`;
-  const res = await fetch(url, { cache: "no-store" });
+// async function getTicket(id: string) {
+//   const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/tickets/${id}`;
+//   const res = await fetch(url, { cache: "no-store" });
 
-  if (!res.ok) {
-    return undefined;
-  }
+//   if (!res.ok) {
+//     return undefined;
+//   }
 
-  return res.json();
-}
+//   return res.json();
+// }
 
 interface Props {
   params: {
-    id: string;
+    id: string | Promise<string>;
   };
 }
 
 const TicketDetailsPage = async ({ params }: Props) => {
-  const ticket: Ticket = await getTicket(params.id);
+  const id = await params.id; 
+  // const ticket: Ticket = await getTicket(id);
+    const ticket: Ticket | undefined = dummyTickets.find(
+    (t) => t.id === Number(id)
+  );
 
   if (!ticket) {
     notFound();
@@ -37,12 +41,12 @@ const TicketDetailsPage = async ({ params }: Props) => {
         <Breadcrumb
           items={[
             { label: "Tickets", route: "/tickets" },
-            { label: params.id, route: "/" },
+            { label: id, route: `/tickets/${id}` },
           ]}
         />
       </div>
 
-      <CustomTitle title={`Ticket Details for ID: ${params.id}`} />
+      <CustomTitle title={`Ticket Details for ID: ${id}`} />
 
       <TicketDetails ticket={ticket} />
     </div>

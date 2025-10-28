@@ -4,7 +4,7 @@ import { use } from "react";
 import BackButton from "@/components/BackButton";
 import Breadcrumb from "@/components/Breadcrumb";
 import CustomTitle from "@/components/CustomTitle";
-import { Ticket } from "@/types/types";
+import { dummyTickets } from "../data/dummyTickets"; 
 import Link from "next/link";
 import { AiOutlinePlusSquare } from "react-icons/ai";
 import TicketsContent from "@/components/TicketContent";
@@ -16,36 +16,7 @@ interface Props {
   }>;
 }
 
-// ---------------------- Dummy Data ---------------------- //
-const dummyTickets: Ticket[] = [
-  {
-    id: 1,
-    time: "2025-10-20T08:30:00Z",
-    passengerName: "John Doe",
-    passengerSSN: 123456789,
-    from: "New York",
-    to: "London",
-    price: 750,
-  },
-  {
-    id: 2,
-    time: "2025-11-02T14:15:00Z",
-    passengerName: "Jane Smith",
-    passengerSSN: 987654321,
-    from: "Paris",
-    to: "Tokyo",
-    price: 980,
-  },
-  {
-    id: 3,
-    time: "2025-12-05T19:45:00Z",
-    passengerName: "Peter Johnson",
-    passengerSSN: 555888222,
-    from: "Dubai",
-    to: "Toronto",
-    price: 620,
-  },
-];
+
 
 // ---------------------- Main Component ---------------------- //
 const TicketsPage = ({ searchParams }: Props) => {

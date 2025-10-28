@@ -12,13 +12,7 @@ interface Props {
 
 const TicketDetails = ({ ticket }: Props) => {
   return (
-    <div className="relative bg-linear-to-br from-white via-sky-50 to-sky-100 border border-slate-200 rounded-2xl shadow-xl overflow-hidden max-w-2xl mx-auto mt-8 transition-all duration-300 hover:shadow-2xl">
-      {/* Decorative corners */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-24 h-24 bg-sky-300 opacity-20 rounded-br-full"></div>
-        <div className="absolute bottom-0 right-0 w-24 h-24 bg-sky-400 opacity-20 rounded-tl-full"></div>
-      </div>
-
+    <div className="bg-linear-to-br from-white via-sky-50 to-sky-100 border border-slate-200 rounded-2xl shadow-xl overflow-hidden max-w-2xl mx-auto mt-8 transition-all duration-300 hover:shadow-2xl">
       {/* Content */}
       <div className="p-6 space-y-4 relative z-10">
         <h2 className="text-2xl font-semibold text-sky-800 text-center mb-4 tracking-wide">
@@ -27,11 +21,31 @@ const TicketDetails = ({ ticket }: Props) => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-6">
           <Detail label="Ticket ID" value={`#${ticket.id}`} />
-          <Detail label="Passenger Name" value={ticket.passengerName} icon={<User className="w-5 h-5 text-sky-700" />} />
-          <Detail label="Passenger SSN" value={ticket.passengerSSN} icon={<CreditCard className="w-5 h-5 text-sky-700" />} />
-          <Detail label="Price (DKK)" value={ticket.price.toString()} icon={<CreditCard className="w-5 h-5 text-emerald-600" />} />
-          <Detail label="From" value={ticket.from} icon={<PlaneTakeoff className="w-5 h-5 text-sky-700" />} />
-          <Detail label="To" value={ticket.to} icon={<PlaneLanding className="w-5 h-5 text-sky-700" />} />
+          <Detail
+            label="Passenger Name"
+            value={ticket.passengerName}
+            icon={<User className="w-5 h-5 text-sky-700" />}
+          />
+          <Detail
+            label="Passenger SSN"
+            value={ticket.passengerSSN}
+            icon={<CreditCard className="w-5 h-5 text-sky-700" />}
+          />
+          <Detail
+            label="Price (DKK)"
+            value={ticket.price.toString()}
+            icon={<CreditCard className="w-5 h-5 text-emerald-600" />}
+          />
+          <Detail
+            label="From"
+            value={ticket.from}
+            icon={<PlaneTakeoff className="w-5 h-5 text-sky-700" />}
+          />
+          <Detail
+            label="To"
+            value={ticket.to}
+            icon={<PlaneLanding className="w-5 h-5 text-sky-700" />}
+          />
           <Detail
             label="Departure Time"
             value={moment(ticket.time + "Z").format("YYYY-MM-DD HH:mm")}
