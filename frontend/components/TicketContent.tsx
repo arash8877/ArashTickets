@@ -3,7 +3,8 @@
 import { Ticket } from "@/types/types";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { MdOutlinePageview, MdOutlineEdit, MdOutlineDelete } from "react-icons/md";
+import { AiOutlineEye } from "react-icons/ai"; // new view icon
+import { MdOutlineEdit, MdOutlineDelete } from "react-icons/md";
 import moment from "moment";
 
 interface Props {
@@ -14,85 +15,82 @@ const TicketsContent = ({ ticketsData }: Props) => {
   const router = useRouter();
 
   return (
-    <div className="w-full overflow-hidden">
-      {/* ---------------- Desktop / Tablet Table ---------------- */}
-      <div className="hidden md:block overflow-x-auto">
-        <table className="w-full">
-          <thead className="bg-linear-to-r from-sky-600 to-blue-600 text-white text-sm lg:text-base">
-            <tr>
-              <th className="text-center py-3 px-4">ID</th>
-              <th className="text-center py-3 px-4">Passenger</th>
-              <th className="text-center py-3 px-4">SSN</th>
-              <th className="text-center py-3 px-4">From</th>
-              <th className="text-center py-3 px-4">To</th>
-              <th className="text-center py-3 px-4">Price</th>
-              <th className="text-center py-3 px-4">Time</th>
-              <th className="text-center py-3 px-4">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {ticketsData.map((ticket) => (
-              <tr
-                key={ticket.id}
-                className="border-b hover:bg-sky-50 transition-all duration-200 cursor-pointer"
-                onClick={() => router.push(`/tickets/${ticket.id}`)}
+    <div className="w-full">
+      {/* ---------------- Desktop Table ---------------- */}
+      <div className="hidden md:block">
+        {/* Header */}
+        <div className="grid grid-cols-12 gap-2 bg-sky-600 text-white text-sm lg:text-base rounded-t-xl p-3">
+          <span className="col-span-1 text-center font-semibold">ID</span>
+          <span className="col-span-2 text-center font-semibold">Passenger</span>
+          <span className="col-span-2 text-center font-semibold">SSN</span>
+          <span className="col-span-2 text-center font-semibold">From</span>
+          <span className="col-span-2 text-center font-semibold">To</span>
+          <span className="col-span-1 text-center font-semibold">Price</span>
+          <span className="col-span-2 text-center font-semibold">Actions</span>
+        </div>
+
+        {/* Rows */}
+        {ticketsData.map((ticket) => (
+          <div
+            key={ticket.id}
+            className="grid grid-cols-12 gap-2 bg-white shadow-sm border border-gray-200 p-3 items-center cursor-pointer 
+                       transition-transform duration-300 hover:scale-[1.02] hover:shadow-lg"
+            onClick={() => router.push(`/tickets/${ticket.id}`)}
+          >
+            <span className="col-span-1 text-center text-gray-700">{ticket.id}</span>
+            <span className="col-span-2 text-center font-semibold text-gray-900">
+              {ticket.passengerName}
+            </span>
+            <span className="col-span-2 text-center text-gray-700">{ticket.passengerSSN}</span>
+            <span className="col-span-2 text-center text-gray-700">{ticket.from}</span>
+            <span className="col-span-2 text-center text-gray-700">{ticket.to}</span>
+            <span className="col-span-1 text-center text-gray-700">
+              {ticket.price.toLocaleString("da-DK", { style: "currency", currency: "DKK" })}
+            </span>
+
+            {/* Action Buttons */}
+            <div
+              className="col-span-2 flex justify-center md:justify-end gap-2"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Link
+                href={`/tickets/${ticket.id}`}
+                className="bg-green-600 hover:bg-green-700 text-white p-2 rounded-lg shadow-sm transition hover:scale-110"
               >
-                <td className="text-center py-2 px-4">{ticket.id}</td>
-                <td className="text-center py-2 px-4 font-medium">{ticket.passengerName}</td>
-                <td className="text-center py-2 px-4">{ticket.passengerSSN}</td>
-                <td className="text-center py-2 px-4">{ticket.from}</td>
-                <td className="text-center py-2 px-4">{ticket.to}</td>
-                <td className="text-center py-2 px-4 font-semibold text-sky-700">
-                  {ticket.price.toLocaleString("da-DK", {
-                    style: "currency",
-                    currency: "DKK",
-                  })}
-                </td>
-                <td className="text-center py-2 px-4">
-                  {moment(ticket.time).format("YYYY-MM-DD HH:mm")}
-                </td>
-                <td
-                  className="text-center py-2 px-4"
-                  onClick={(e) => e.stopPropagation()} // prevent row click when clicking buttons
-                >
-                  <div className="flex justify-center items-center gap-2">
-                    <Link
-                      href={`/tickets/${ticket.id}`}
-                      className="bg-green-600 hover:bg-green-700 text-white p-2 rounded-md transition-transform transform hover:scale-105"
-                    >
-                      <MdOutlinePageview className="text-xl" />
-                    </Link>
-                    <Link
-                      href={`/tickets/edit/${ticket.id}`}
-                      className="bg-yellow-600 hover:bg-yellow-700 text-white p-2 rounded-md transition-transform transform hover:scale-105"
-                    >
-                      <MdOutlineEdit className="text-xl" />
-                    </Link>
-                    <Link
-                      href={`/tickets/delete/${ticket.id}`}
-                      className="bg-red-600 hover:bg-red-700 text-white p-2 rounded-md transition-transform transform hover:scale-105"
-                    >
-                      <MdOutlineDelete className="text-xl" />
-                    </Link>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                <AiOutlineEye className="text-lg" />
+              </Link>
+              <Link
+                href={`/tickets/edit/${ticket.id}`}
+                className="bg-yellow-500 hover:bg-yellow-600 text-white p-2 rounded-lg shadow-sm transition hover:scale-110"
+              >
+                <MdOutlineEdit className="text-lg" />
+              </Link>
+              <Link
+                href={`/tickets/delete/${ticket.id}`}
+                className="bg-red-600 hover:bg-red-700 text-white p-2 rounded-lg shadow-sm transition hover:scale-110"
+              >
+                <MdOutlineDelete className="text-lg" />
+              </Link>
+            </div>
+          </div>
+        ))}
       </div>
 
       {/* ---------------- Mobile Card View ---------------- */}
-      <div className="block md:hidden p-2 space-y-4">
+      <div className="block md:hidden space-y-4">
         {ticketsData.map((ticket) => (
-          <div key={ticket.id}>
+          <div
+            key={ticket.id}
+            className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden cursor-pointer 
+                       transition-transform duration-300 hover:scale-[1.02] hover:shadow-lg"
+          >
             <Link href={`/tickets/${ticket.id}`}>
-              <div className="bg-sky-50 border border-sky-200 rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer">
-                <div className="flex justify-between items-center border-b border-sky-200 pb-2 mb-2">
-                  <span className="font-semibold text-sky-700">{ticket.passengerName}</span>
+              <div className="p-4">
+                <div className="flex justify-between items-center mb-2">
+                  <h3 className="font-semibold text-gray-900">{ticket.passengerName}</h3>
                   <span className="text-xs text-gray-500">#{ticket.id}</span>
                 </div>
-                <div className="text-sm text-gray-700 space-y-1">
+                <div className="space-y-1 text-gray-700 text-sm">
                   <p>
                     <span className="font-semibold">From:</span> {ticket.from}
                   </p>
@@ -110,23 +108,22 @@ const TicketsContent = ({ ticketsData }: Props) => {
                 </div>
               </div>
             </Link>
-            {/* Action Buttons */}
-            <div className="flex justify-end items-center gap-2 mt-2 px-1">
+            <div className="flex justify-end items-center gap-2 p-2 border-t border-gray-200">
               <Link
                 href={`/tickets/${ticket.id}`}
-                className="bg-green-600 hover:bg-green-700 text-white p-2 rounded-md"
+                className="bg-green-600 hover:bg-green-700 text-white p-2 rounded-lg shadow-sm transition hover:scale-110"
               >
-                <MdOutlinePageview />
+                <AiOutlineEye />
               </Link>
               <Link
                 href={`/tickets/edit/${ticket.id}`}
-                className="bg-yellow-600 hover:bg-yellow-700 text-white p-2 rounded-md"
+                className="bg-yellow-500 hover:bg-yellow-600 text-white p-2 rounded-lg shadow-sm transition hover:scale-110"
               >
                 <MdOutlineEdit />
               </Link>
               <Link
                 href={`/tickets/delete/${ticket.id}`}
-                className="bg-red-600 hover:bg-red-700 text-white p-2 rounded-md"
+                className="bg-red-600 hover:bg-red-700 text-white p-2 rounded-lg shadow-sm transition hover:scale-110"
               >
                 <MdOutlineDelete />
               </Link>

@@ -16,53 +16,53 @@ interface Props {
   }>;
 }
 
-// ---------------------- Main Component ---------------------- //
 const TicketsPage = ({ searchParams }: Props) => {
-  const params = use(searchParams); // ✅ unwraps searchParams safely
+  const params = use(searchParams);
   const query = params?.q?.toLowerCase() ?? "";
 
   const filteredTickets = query
-    ? dummyTickets.filter((ticket) => ticket.passengerName.toLowerCase().includes(query))
+    ? dummyTickets.filter((ticket) =>
+        ticket.passengerName.toLowerCase().includes(query)
+      )
     : dummyTickets;
 
-  // ---------------------- JSX Return ---------------------- //
   return (
-    <div className="page-container flex flex-col gap-6">
+    <div className="page-container flex flex-col gap-8">
       {/* Top Controls */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center gap-4">
           <BackButton destination="/" />
           <Breadcrumb items={[{ label: "Tickets", route: "/tickets" }]} />
         </div>
 
         <Link
           href="/tickets/create"
-          className="flex items-center justify-center gap-2 
-             bg-linear-to-r from-sky-600 to-blue-600 
-             text-white px-3 sm:px-5 md:px-6 py-2.5 
-             rounded-xl shadow-md 
-             hover:shadow-lg hover:from-sky-700 hover:to-blue-700 
-             transition-all duration-300 transform hover:-translate-y-1 
-             active:scale-95"
+          className="flex items-center justify-center gap-2
+            bg-linear-to-r from-green-500 to-emerald-500
+            text-white px-4 sm:px-6 py-2.5
+            rounded-xl shadow-md
+            hover:shadow-xl hover:from-green-600 hover:to-emerald-600
+            transition-all duration-300 transform hover:-translate-y-1 active:scale-95"
         >
-          <AiOutlinePlusSquare className="text-xl sm:text-2xl md:text-3xl" />
-          <span className="text-base sm:text-lg md:text-xl font-semibold whitespace-nowrap">
-            Create Ticket
-          </span>
+          <AiOutlinePlusSquare className="text-xl sm:text-2xl" />
+          <span className="font-semibold text-base sm:text-lg">Create Ticket</span>
         </Link>
       </div>
 
       {/* Page Title */}
       <CustomTitle title="Tickets Overview" />
 
+      {/* Search */}
       <SearchBox />
 
-      {/* Tickets Table */}
-      <div className="bg-white rounded-xl py-6 overflow-x-auto">
+      {/* Tickets Table / Cards */}
+      <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
         {filteredTickets.length ? (
           <TicketsContent ticketsData={filteredTickets} />
         ) : (
-          <p className="text-center text-gray-500 py-10 text-lg">No tickets found 😔</p>
+          <p className="text-center text-gray-500 py-12 text-lg">
+            No tickets found 😔
+          </p>
         )}
       </div>
     </div>
