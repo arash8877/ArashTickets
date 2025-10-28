@@ -28,8 +28,8 @@ const HomePage = () => {
           transition={{ delay: 0.3, duration: 0.8 }}
           className="max-w-xl text-lg text-gray-600"
         >
-          ✈️ The easiest way to book, manage, and explore flights around the world.  
-          Travel smarter — fly with style.
+          The easiest way to book, manage, and explore flights around the world. Travel smarter —
+          fly with style.
         </motion.p>
 
         <motion.div

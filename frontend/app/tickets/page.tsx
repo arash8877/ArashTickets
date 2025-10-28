@@ -21,9 +21,7 @@ const TicketsPage = ({ searchParams }: Props) => {
   const query = params?.q?.toLowerCase() ?? "";
 
   const filteredTickets = query
-    ? dummyTickets.filter((ticket) =>
-        ticket.passengerName.toLowerCase().includes(query)
-      )
+    ? dummyTickets.filter((ticket) => ticket.passengerName.toLowerCase().includes(query))
     : dummyTickets;
 
   return (
@@ -60,9 +58,7 @@ const TicketsPage = ({ searchParams }: Props) => {
         {filteredTickets.length ? (
           <TicketsContent ticketsData={filteredTickets} />
         ) : (
-          <p className="text-center text-gray-500 py-12 text-lg">
-            No tickets found 😔
-          </p>
+          <p className="text-center text-gray-500 py-12 text-lg">No tickets found 😔</p>
         )}
       </div>
     </div>
