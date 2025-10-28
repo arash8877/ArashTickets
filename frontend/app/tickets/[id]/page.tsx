@@ -4,7 +4,7 @@ import CustomTitle from "@/components/CustomTitle";
 import { Ticket } from "@/types/types";
 import { notFound } from "next/navigation";
 import TicketDetails from "@/components/TicketDetails";
-import { dummyTickets } from "@/app/data/dummyTickets";
+import { dummyTickets } from "@/data/dummyTickets";
 
 // async function getTicket(id: string) {
 //   const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/tickets/${id}`;
@@ -24,11 +24,9 @@ interface Props {
 }
 
 const TicketDetailsPage = async ({ params }: Props) => {
-  const id = await params.id; 
+  const id = await params.id;
   // const ticket: Ticket = await getTicket(id);
-    const ticket: Ticket | undefined = dummyTickets.find(
-    (t) => t.id === Number(id)
-  );
+  const ticket: Ticket | undefined = dummyTickets.find((t) => t.id === Number(id));
 
   if (!ticket) {
     notFound();

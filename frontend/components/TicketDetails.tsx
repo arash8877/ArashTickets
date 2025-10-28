@@ -48,7 +48,7 @@ const TicketDetails = ({ ticket }: Props) => {
           />
           <Detail
             label="Departure Time"
-            value={moment(ticket.time + "Z").format("YYYY-MM-DD HH:mm")}
+            value={moment(ticket.time).format("YYYY-MM-DD HH:mm")}
             icon={<Calendar className="w-5 h-5 text-amber-600" />}
           />
         </div>

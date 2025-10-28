@@ -49,7 +49,7 @@ const TicketsContent = ({ ticketsData }: Props) => {
                   })}
                 </td>
                 <td className="text-center py-2 px-4">
-                  {moment(ticket.time + "Z").format("YYYY-MM-DD HH:mm")}
+                  {moment(ticket.time).format("YYYY-MM-DD HH:mm")}
                 </td>
                 <td
                   className="text-center py-2 px-4"
@@ -105,7 +105,7 @@ const TicketsContent = ({ ticketsData }: Props) => {
                   </p>
                   <p>
                     <span className="font-semibold">Time:</span>{" "}
-                    {moment(ticket.time + "Z").format("YYYY-MM-DD HH:mm")}
+                    {moment(ticket.time).format("YYYY-MM-DD HH:mm")}
                   </p>
                 </div>
               </div>

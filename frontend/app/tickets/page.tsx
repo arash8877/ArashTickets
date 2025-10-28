@@ -4,7 +4,7 @@ import { use } from "react";
 import BackButton from "@/components/BackButton";
 import Breadcrumb from "@/components/Breadcrumb";
 import CustomTitle from "@/components/CustomTitle";
-import { dummyTickets } from "../data/dummyTickets"; 
+import { dummyTickets } from "../../data/dummyTickets";
 import Link from "next/link";
 import { AiOutlinePlusSquare } from "react-icons/ai";
 import TicketsContent from "@/components/TicketContent";
@@ -15,8 +15,6 @@ interface Props {
     q?: string;
   }>;
 }
-
-
 
 // ---------------------- Main Component ---------------------- //
 const TicketsPage = ({ searchParams }: Props) => {
