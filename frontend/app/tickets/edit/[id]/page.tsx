@@ -1,4 +1,3 @@
-// app/tickets/edit/[id]/page.tsx
 import EditTicketForm from "@/components/EditTicketForm";
 import { dummyTickets } from "@/data/dummyTickets";
 
