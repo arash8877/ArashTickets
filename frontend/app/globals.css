@@ -3,7 +3,7 @@
 
 @layer components {
   .page-container {
-    @apply bg-white shadow-lg rounded-xl 
+    @apply bg-white 
            mx-2 my-2 p-12 
            md:mx-4 md:my-4 md:p-6 
            lg:mx-8 lg:my-6 lg:p-8;

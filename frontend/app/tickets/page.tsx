@@ -28,7 +28,7 @@ const TicketsPage = ({ searchParams }: Props) => {
     <div className="page-container flex flex-col gap-8">
       {/* Top Controls */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center justify-between gap-4">
           <BackButton destination="/" />
           <Breadcrumb items={[{ label: "Tickets", route: "/tickets" }]} />
         </div>
