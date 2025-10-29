@@ -34,7 +34,7 @@ const TicketDetailsPage = async ({ params }: Props) => {
 
   return (
     <div className="page-container">
-      <div className="flex justify-start items-center gap-x-4 mb-6">
+      <div className="flex justify-start items-center gap-x-4 mb-12">
         <BackButton destination="/tickets" />
         <Breadcrumb
           items={[
@@ -43,8 +43,6 @@ const TicketDetailsPage = async ({ params }: Props) => {
           ]}
         />
       </div>
-
-      <CustomTitle title={`Ticket Details for ID: ${id}`} />
 
       <TicketDetails ticket={ticket} />
     </div>

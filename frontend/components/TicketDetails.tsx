@@ -1,10 +1,11 @@
-"use client";
+'use client';
 
 import React, { useState } from "react";
 import { Ticket } from "@/types/types";
 import moment from "moment";
 import Link from "next/link";
 import { PlaneTakeoff, PlaneLanding, User, CreditCard, Calendar } from "lucide-react";
+import { MdEdit, MdDelete } from "react-icons/md";
 import DeleteTicketModal from "./DeleteTicketModal";
 
 interface Props {
@@ -35,16 +36,18 @@ const TicketDetails = ({ ticket }: Props) => {
         <div className="flex justify-between items-center pt-6 border-t border-slate-200">
           <Link
             href={`/tickets/edit/${ticket.id}`}
-            className="px-5 py-2 rounded-lg bg-amber-500 text-white font-medium shadow-md hover:bg-amber-600 transition-transform transform hover:-translate-y-0.5"
+            className="flex items-center gap-2 px-5 py-2 rounded-lg bg-amber-500 text-white font-medium shadow-md hover:bg-amber-600 transition-transform transform hover:-translate-y-0.5"
           >
-            ✏️ Edit
+            <MdEdit className="w-5 h-5" />
+            Edit
           </Link>
 
           <button
             onClick={() => setIsDeleteOpen(true)}
-            className="px-5 py-2 rounded-lg bg-red-700 text-white font-medium shadow-md hover:bg-red-800 transition-transform transform cursor-pointer hover:-translate-y-0.5"
+            className="flex items-center gap-2 px-5 py-2 rounded-lg bg-red-700 text-white font-medium shadow-md hover:bg-red-800 transition-transform transform cursor-pointer hover:-translate-y-0.5"
           >
-            🗑️ Delete
+            <MdDelete className="w-5 h-5" />
+            Delete
           </button>
         </div>
       </div>
