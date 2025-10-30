@@ -1,29 +1,53 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+
+// ------------- Services ------------
+builder.Services.AddControllers();              // If you add controllers later
+builder.Services.AddEndpointsApiExplorer();     // Required for non-controller endpoints discovery
+builder.Services.AddOpenApi();                   // .NET 9 built-in OpenAPI doc generation
+builder.Services.AddSwaggerGen();                // <-- Swashbuckle: provides Swagger UI and extras
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
+// ------------ Middleware / Pipeline -------------
 if (app.Environment.IsDevelopment())
 {
+    // Expose the generated OpenAPI JSON at /openapi/v1.json (MapOpenApi)
     app.MapOpenApi();
+
+    // Add the classic Swagger JSON + UI via Swashbuckle
+    app.UseSwagger(); // adds /swagger/v1/swagger.json (Swashbuckle-generated JSON)
+    app.UseSwaggerUI(options =>
+    {
+        // Point UI at the .NET 9 OpenAPI doc if you want, or to the Swashbuckle doc.
+        // Both are possible; here we show both endpoints in the UI:
+        options.SwaggerEndpoint("/openapi/v1.json", "OpenAPI (built-in) v1");
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Swashbuckle v1");
+        options.RoutePrefix = "swagger"; // UI at /swagger
+    });
 }
 
+// If HTTPS redirection causes annoyance in dev, comment this out
 app.UseHttpsRedirection();
 
+app.UseAuthorization();
+
+// Example minimal endpoint (the WeatherForecast from the template)
 var summaries = new[]
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+    "Freezing", "Bracing", "Chilly", "Cool", "Mild",
+    "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
 app.MapGet("/weatherforecast", () =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
+    var forecast = Enumerable.Range(1, 5).Select(index =>
+        new WeatherForecast(
             DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
             Random.Shared.Next(-20, 55),
             summaries[Random.Shared.Next(summaries.Length)]
@@ -31,7 +55,8 @@ app.MapGet("/weatherforecast", () =>
         .ToArray();
     return forecast;
 })
-.WithName("GetWeatherForecast");
+.WithName("GetWeatherForecast")
+.WithOpenApi(); // include in the built-in OpenAPI document
 
 app.Run();
 
