@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Link from "next/link";
 import React from "react";
@@ -8,7 +8,7 @@ import { MdFlightTakeoff } from "react-icons/md";
 
 const HomePage = () => {
   return (
-    <main className="relative h-[calc(100vh-4rem)] flex flex-col justify-center items-center bg-linear-to-b from-sky-50 via-white to-sky-100 text-gray-800 px-6 py-12">
+    <main className="relative h-[calc(100vh-4rem)] flex flex-col justify-center items-center bg-linear-to-b from-sky-50 to-sky-100 text-gray-800 px-6 py-12">
       {/* Hero Section */}
       <motion.section
         initial={{ opacity: 0, y: -40 }}
@@ -28,7 +28,7 @@ const HomePage = () => {
             className="flex items-center gap-2 justify-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl shadow-md transition-transform transform hover:-translate-y-1 hover:shadow-lg"
           >
             <MdFlightTakeoff className="w-5 h-5" />
-            Browse Flights
+            Browse Tickets
           </Link>
           <Link
             href="/about"
