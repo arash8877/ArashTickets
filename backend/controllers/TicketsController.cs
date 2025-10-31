@@ -23,16 +23,32 @@ namespace backend.controllers
         }
 
         // ------------ CRUD ------------
-        
+
         // CREATE
         [HttpPost]
         [Route("create")]
-        public async Task<ActionResult<IEnumerable<Ticket>>> GetTickets()
+        public async Task<IActionResult> CreateTicket([FromBody] core.dto.CreateTicketDto createTicketDto)
         {
-            return await _context.Tickets.ToListAsync();
+            var newTicket = new Ticket()
+            {
+                Time = createTicketDto.Time,
+                PassengersName = createTicketDto.PassengersName,
+                PassengerSSN = createTicketDto.PassengerSSN,
+                From = createTicketDto.From,
+                To = createTicketDto.To,
+                Price = createTicketDto.Price
+            };
+
+            // Save to database
+            _context.Tickets.Add(newTicket);
+            await _context.SaveChangesAsync();
+
+            // Return success response
+            return CreatedAtAction(nameof(CreateTicket), new { id = newTicket.Id }, newTicket);
+
         }
 
-        
+
     }
-    
+
 }
