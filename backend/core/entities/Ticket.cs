@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System.Data.SqlTypes;
 
 namespace backend.core.entities
 {
@@ -8,7 +7,6 @@ namespace backend.core.entities
         [Key]
         public long Id { get; set; }
         public DateTime Time { get; set; }
-
         public string PassengersName { get; set; } = string.Empty;
         public long PassengerSSN { get; set; }
         public string From { get; set; } = string.Empty;

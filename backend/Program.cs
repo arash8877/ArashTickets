@@ -1,15 +1,23 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// ------------- Config DB ------------
+builder.Services.AddDbContext<backend.core.context.AppDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("local"));
+});
 
 
 // ------------- Services ------------
 builder.Services.AddControllers();              // If you add controllers later
 builder.Services.AddEndpointsApiExplorer();     // Required for non-controller endpoints discovery
 builder.Services.AddOpenApi();                   // .NET 9 built-in OpenAPI doc generation
-builder.Services.AddSwaggerGen();                // <-- Swashbuckle: provides Swagger UI and extras
+builder.Services.AddSwaggerGen();                // provides Swagger UI and extras
 
 var app = builder.Build();
 
