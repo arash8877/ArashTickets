@@ -1,4 +1,5 @@
 using System.Reflection.Metadata.Ecma335;
+using AutoMapper;
 using backend.core.context;
 using backend.core.entities;
 using Microsoft.AspNetCore.Http;
@@ -15,11 +16,13 @@ namespace backend.controllers
     {
         // Dependency injection of the AppDbContext to access the database 
         private readonly AppDbContext _context;
+        private readonly IMapper _mapper;
 
         // Constructor
-        public TicketsController(AppDbContext context)
+        public TicketsController(AppDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // ------------ CRUD ------------
