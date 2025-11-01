@@ -1,6 +1,7 @@
 using AutoMapper;
 using backend.core.dto;
 using backend.core.entities;
+using server.core.dto;
 
 namespace server.core.autoMapperConfig
 {
@@ -10,6 +11,7 @@ namespace server.core.autoMapperConfig
         {
             // Tickets
             CreateMap<CreateTicketDto, Ticket>();
+            CreateMap<Ticket, GetTicketDto>();
         }
     }
 }

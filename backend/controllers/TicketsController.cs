@@ -5,6 +5,7 @@ using backend.core.entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using server.core.dto;
 
 
 
@@ -52,7 +53,14 @@ namespace backend.controllers
 
         }
 
-
+        // CREATE
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<GetTicketDto>>> GetTickets()
+        {
+            var tickets = await _context.Tickets.ToListAsync(); // get tickets from context
+            var ticketsDto = _mapper.Map<IEnumerable<GetTicketDto>>(tickets);
+            return Ok(ticketsDto);
+        }
     }
 
 }
