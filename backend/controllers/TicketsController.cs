@@ -1,6 +1,7 @@
 using System.Reflection.Metadata.Ecma335;
 using AutoMapper;
 using backend.core.context;
+using backend.core.dto;
 using backend.core.entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -53,13 +54,43 @@ namespace backend.controllers
 
         }
 
-        // CREATE
+        // READ (read all)
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GetTicketDto>>> GetTickets()
         {
             var tickets = await _context.Tickets.ToListAsync(); // get tickets from context
             var ticketsDto = _mapper.Map<IEnumerable<GetTicketDto>>(tickets);
             return Ok(ticketsDto);
+        }
+
+        // READ (one by id)
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<ActionResult<IEnumerable<GetTicketDto>>> GetTicketById([FromRoute] long id)
+        {
+            var ticket = await _context.Tickets.FirstOrDefaultAsync(t => t.Id == id);
+            if (ticket is null)
+            {
+                return NotFound("Ticket not found");
+            }
+            var ticketDto = _mapper.Map<GetTicketDto>(ticket);
+            return Ok(ticketDto);
+        }
+
+        // UPDATE
+        [HttpPut]
+        [Route("edit/{id}")]
+        public async Task<IActionResult> EditTicket([FromRoute] long id, [FromBody] UpdateTicketDto updateTicketDto)
+        {
+            var ticket = await _context.Tickets.FirstOrDefaultAsync(t => t.Id == id);
+            if (ticket is null)
+            {
+                return NotFound("Ticket not found");
+            }
+            _mapper.Map(updateTicketDto, ticket);
+            ticket.UpdatedAt = DateTime.Now;
+            await _context.SaveChangesAsync();
+            return Ok("Ticket updated successfully");
         }
     }
 

@@ -12,6 +12,7 @@ namespace server.core.autoMapperConfig
             // Tickets
             CreateMap<CreateTicketDto, Ticket>();
             CreateMap<Ticket, GetTicketDto>();
+            CreateMap<UpdateTicketDto, Ticket>();
         }
     }
 }
