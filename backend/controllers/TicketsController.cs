@@ -32,22 +32,23 @@ namespace backend.controllers
         [Route("create")]
         public async Task<IActionResult> CreateTicket([FromBody] core.dto.CreateTicketDto createTicketDto)
         {
-            var newTicket = new Ticket()
-            {
-                Time = createTicketDto.Time,
-                PassengersName = createTicketDto.PassengersName,
-                PassengerSSN = createTicketDto.PassengerSSN,
-                From = createTicketDto.From,
-                To = createTicketDto.To,
-                Price = createTicketDto.Price
-            };
+            var newTicket = new Ticket();
+            _mapper.Map(createTicketDto, newTicket);
+            // {
+            //     Time = createTicketDto.Time,
+            //     PassengersName = createTicketDto.PassengersName,
+            //     PassengerSSN = createTicketDto.PassengerSSN,
+            //     From = createTicketDto.From,
+            //     To = createTicketDto.To,
+            //     Price = createTicketDto.Price
+            // };
 
             // Save to database
             _context.Tickets.Add(newTicket);
             await _context.SaveChangesAsync();
 
             // Return success response
-            return CreatedAtAction(nameof(CreateTicket), new { id = newTicket.Id }, newTicket);
+            return Ok("Ticket created successfully");
 
         }
 
