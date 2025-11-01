@@ -92,6 +92,21 @@ namespace backend.controllers
             await _context.SaveChangesAsync();
             return Ok("Ticket updated successfully");
         }
+ 
+        // DELETE
+        [HttpDelete]
+        [Route("delete/{id}")]
+        public async Task<IActionResult> DeleteTicket([FromRoute] long id)
+        {
+            var ticket = await _context.Tickets.FirstOrDefaultAsync(t => t.Id == id);
+            if (ticket is null)
+            {
+                return NotFound("Ticket not found");
+            }
+            _context.Tickets.Remove(ticket);
+            await _context.SaveChangesAsync();
+            return Ok("Ticket deleted successfully");
+        }
     }
 
 }
