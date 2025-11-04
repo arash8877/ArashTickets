@@ -22,7 +22,7 @@ const Spinner = ({ color = "blue" }: SpinnerProps) => {
     <div className="flex items-center justify-center w-full py-12">
       <div
         className={`rounded-full border-4 border-gray-200 ${borderColorClass} animate-spin
-          w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16`}
+          w-8 h-8 sm:w-10 sm:h-10 md:w-24 md:h-24 lg:w-32 lg:h-32`}
       ></div>
     </div>
   );
