@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useEffect } from "react";
+import { use } from "react";
 import BackButton from "@/components/BackButton";
 import Breadcrumb from "@/components/Breadcrumb";
 import CustomTitle from "@/components/CustomTitle";
@@ -9,6 +9,7 @@ import { AiOutlinePlusSquare } from "react-icons/ai";
 import TicketsContent from "@/components/TicketContent";
 import SearchBox from "@/components/SearchBox";
 import useTickets from "@/hooks/useTickets";
+import Spinner from "@/components/Spinner";
 
 interface Props {
   searchParams: Promise<{
@@ -23,20 +24,13 @@ const TicketsPage = ({ searchParams }: Props) => {
   const { data: ticketsData, isLoading, isError, error } = useTickets();
 
 
- // ✅ Log data only when it’s available
-  useEffect(() => {
-    if (ticketsData) {
-      console.log("🎟️ Tickets fetched from API:", ticketsData);
-    }
-  }, [ticketsData]);
-
   const filteredTickets = query
     ? (ticketsData ?? []).filter((ticket) => ticket.passengersName.toLowerCase().includes(query))
     : ticketsData ?? [];
 
   //------------------------- JSX -------------------------
   return (
-    <div className="page-container flex flex-col gap-8">
+<div className="page-container flex flex-col gap-8">
       {/* Top Controls */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div className="flex items-center justify-between gap-4">
@@ -66,10 +60,31 @@ const TicketsPage = ({ searchParams }: Props) => {
 
       {/* Tickets Table / Cards */}
       <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-        {filteredTickets.length ? (
-          <TicketsContent ticketsData={filteredTickets} />
-        ) : (
-          <p className="text-center text-gray-500 py-12 text-lg">No tickets found 😔</p>
+        {/* Loading state */}
+        {isLoading && (
+          <div className="flex justify-center py-12">
+            <Spinner color="blue"/>
+          </div>
+        )}
+
+        {/* Error state */}
+        {isError && (
+          <p className="text-center text-red-500 py-12">
+            Something went wrong: {(error as Error).message}
+          </p>
+        )}
+
+        {/* Data */}
+        {!isLoading && !isError && (
+          <>
+            {filteredTickets.length ? (
+              <TicketsContent ticketsData={filteredTickets} />
+            ) : (
+              <p className="text-center text-gray-500 py-12 text-lg">
+                No tickets found 😔
+              </p>
+            )}
+          </>
         )}
       </div>
     </div>
