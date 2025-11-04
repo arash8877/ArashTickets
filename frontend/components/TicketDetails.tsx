@@ -8,11 +8,12 @@ import { PlaneTakeoff, PlaneLanding, User, CreditCard, Calendar } from "lucide-r
 import { MdEdit, MdDelete } from "react-icons/md";
 import DeleteTicketModal from "./DeleteTicketModal";
 
-interface Props {
+interface TicketDetailsProps {
   ticket: Ticket;
 }
 
-const TicketDetails = ({ ticket }: Props) => {
+
+const TicketDetails = ( { ticket }: TicketDetailsProps) => {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
   return (
@@ -24,7 +25,7 @@ const TicketDetails = ({ ticket }: Props) => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-6">
           <Detail label="Ticket ID" value={`${ticket.id}`} />
-          <Detail label="Passenger Name" value={ticket.passengerName} icon={<User className="w-5 h-5 text-sky-700" />} />
+          <Detail label="Passenger Name" value={ticket.passengersName} icon={<User className="w-5 h-5 text-sky-700" />} />
           <Detail label="Passenger SSN" value={ticket.passengerSSN} icon={<CreditCard className="w-5 h-5 text-sky-700" />} />
           <Detail label="Price (DKK)" value={ticket.price.toString()} icon={<CreditCard className="w-5 h-5 text-emerald-600" />} />
           <Detail label="From" value={ticket.from} icon={<PlaneTakeoff className="w-5 h-5 text-sky-700" />} />
