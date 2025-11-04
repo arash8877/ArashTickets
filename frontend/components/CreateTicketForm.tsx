@@ -1,15 +1,15 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { TicketCreateDto } from "@/types/types";
 import Spinner from "./Spinner";
-import axios from "axios";
 import toast from "react-hot-toast";
+import useCreateTicket from "@/hooks/useCreateTicket";
+
+//------------------------- Create Ticket Form Component -------------------------
 
 const CreateTicketForm = () => {
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const {
     register,
@@ -17,29 +17,26 @@ const CreateTicketForm = () => {
     formState: { errors },
     reset,
   } = useForm<TicketCreateDto>();
+  const { mutate, isPending, isError, isSuccess, error } = useCreateTicket();
 
   const onSubmitFunction = async (data: TicketCreateDto) => {
-    try {
-      setLoading(true);
-      await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/create`, data);
-      toast.success("Ticket created successfully!");
-      router.push("/tickets");
-      router.refresh();
-    } catch (error) {
-      console.error(error);
-      toast.error("Failed to create ticket");
-    } finally {
-      setLoading(false);
-    }
+    mutate(data, {
+      onSuccess: () => {
+        reset(); // clear form after successful creation
+        toast.success("Ticket created successfully!");
+        router.push("/tickets");
+      },
+    });
   };
 
+  //------------------------- JSX -------------------------
   return (
     <>
-      {loading && <Spinner />}
+      {isPending && <Spinner />}
       <form
         onSubmit={handleSubmit(onSubmitFunction)}
         className={`bg-white shadow-lg rounded-2xl p-6 w-full max-w-lg mx-auto mt-6 transition-all duration-300 ${
-          loading ? "blur-sm pointer-events-none" : ""
+          isPending ? "blur-sm pointer-events-none" : ""
         }`}
         noValidate
       >
@@ -72,9 +69,9 @@ const CreateTicketForm = () => {
             type="text"
             autoComplete="off"
             className={`w-full border ${
-              errors.passengerName ? "border-red-400" : "border-gray-300"
+              errors.passengersName ? "border-red-400" : "border-gray-300"
             } rounded-lg px-3 py-2 focus:ring-2 focus:ring-sky-500 outline-none`}
-            {...register("passengerName", {
+            {...register("passengersName", {
               required: "Passenger name is required",
               minLength: {
                 value: 3,
@@ -90,8 +87,8 @@ const CreateTicketForm = () => {
               },
             })}
           />
-          {errors.passengerName && (
-            <p className="text-red-500 text-sm mt-1">{errors.passengerName.message}</p>
+          {errors.passengersName && (
+            <p className="text-red-500 text-sm mt-1">{errors.passengersName.message}</p>
           )}
         </div>
 

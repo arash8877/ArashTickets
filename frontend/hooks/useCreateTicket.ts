@@ -9,7 +9,7 @@ const useCreateTicket = () => {
 
   return useMutation({
     mutationFn: (newTicket: TicketCreateDto) =>
-      createTicket<TicketCreateDto>("tickets", newTicket),
+      createTicket<TicketCreateDto>("tickets/create", newTicket),
     onSuccess: () => {
       // Refresh the tickets list after creating a new ticket
       queryClient.invalidateQueries({ queryKey: ["tickets"] });
