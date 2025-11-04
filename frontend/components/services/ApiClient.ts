@@ -21,7 +21,7 @@ export const getOneTicket = async <T>(endpoint: string, id: number | string): Pr
   return res.data;
 };
 
-export const createItem = async <T>(endpoint: string, data: T): Promise<T> => {
+export const createTicket = async <T>(endpoint: string, data: T): Promise<T> => {
   const res = await axiosInstance.post<T>(endpoint, data);
   return res.data;
 };
