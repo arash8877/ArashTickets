@@ -8,7 +8,7 @@ const axiosInstance = axios.create({
 
 //------------------------- Functional API Client -------------------------
 
-export const getAll = async <T>(
+export const getAllTicket = async <T>(
   endpoint: string,
   config?: AxiosRequestConfig
 ): Promise<T[]> => {
@@ -16,7 +16,7 @@ export const getAll = async <T>(
   return res.data;
 };
 
-export const getOne = async <T>(endpoint: string, id: number | string): Promise<T> => {
+export const getOneTicket = async <T>(endpoint: string, id: number | string): Promise<T> => {
   const res = await axiosInstance.get<T>(`${endpoint}/${id}`);
   return res.data;
 };
