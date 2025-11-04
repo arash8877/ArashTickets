@@ -16,8 +16,8 @@ const axiosInstance = axios.create({
 export const getAll = async <T>(
   endpoint: string,
   config?: AxiosRequestConfig
-): Promise<FetchResponse<T>> => {
-  const res = await axiosInstance.get<FetchResponse<T>>(endpoint, config);
+): Promise<T[]> => {
+  const res = await axiosInstance.get<T[]>(endpoint, config);
   return res.data;
 };
 

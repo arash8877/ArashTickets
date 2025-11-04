@@ -1,7 +1,7 @@
 export type Ticket = {
   id: number;
   time: string;
-  passengerName: string;
+  passengersName: string;
   passengerSSN: number;
   from: string;
   to: string;

@@ -4,7 +4,6 @@ import { use, useEffect } from "react";
 import BackButton from "@/components/BackButton";
 import Breadcrumb from "@/components/Breadcrumb";
 import CustomTitle from "@/components/CustomTitle";
-import { dummyTickets } from "../../data/dummyTickets";
 import Link from "next/link";
 import { AiOutlinePlusSquare } from "react-icons/ai";
 import TicketsContent from "@/components/TicketContent";
@@ -32,8 +31,8 @@ const TicketsPage = ({ searchParams }: Props) => {
   }, [ticketsData]);
 
   const filteredTickets = query
-    ? dummyTickets.filter((ticket) => ticket.passengerName.toLowerCase().includes(query))
-    : dummyTickets;
+    ? (ticketsData ?? []).filter((ticket) => ticket.passengersName.toLowerCase().includes(query))
+    : ticketsData ?? [];
 
   //------------------------- JSX -------------------------
   return (

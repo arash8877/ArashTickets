@@ -40,7 +40,7 @@ const TicketsContent = ({ ticketsData }: Props) => {
               </span>
 
               <span className="col-span-2 text-center font-semibold text-gray-900 truncate">
-                {ticket.passengerName}
+                {ticket.passengersName}
               </span>
 
               <span className="col-span-2 text-center text-gray-700 truncate">
@@ -77,7 +77,7 @@ const TicketsContent = ({ ticketsData }: Props) => {
           >
             <div className="p-4">
               <div className="flex justify-between items-center mb-2">
-                <h3 className="font-semibold text-gray-900">{ticket.passengerName}</h3>
+                <h3 className="font-semibold text-gray-900">{ticket.passengersName}</h3>
                 <span className="text-xs text-gray-500">#{ticket.id}</span>
               </div>
 
