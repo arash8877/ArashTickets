@@ -1,6 +1,6 @@
 "use client";
 
-import { use } from "react";
+import { use, useEffect } from "react";
 import BackButton from "@/components/BackButton";
 import Breadcrumb from "@/components/Breadcrumb";
 import CustomTitle from "@/components/CustomTitle";
@@ -9,6 +9,7 @@ import Link from "next/link";
 import { AiOutlinePlusSquare } from "react-icons/ai";
 import TicketsContent from "@/components/TicketContent";
 import SearchBox from "@/components/SearchBox";
+import useTickets from "@/hooks/useTickets";
 
 interface Props {
   searchParams: Promise<{
@@ -16,14 +17,25 @@ interface Props {
   }>;
 }
 
+//------------------------- Tickets Page Component -------------------------
 const TicketsPage = ({ searchParams }: Props) => {
   const params = use(searchParams);
   const query = params?.q?.toLowerCase() ?? "";
+  const { data: ticketsData, isLoading, isError, error } = useTickets();
+
+
+ // ✅ Log data only when it’s available
+  useEffect(() => {
+    if (ticketsData) {
+      console.log("🎟️ Tickets fetched from API:", ticketsData);
+    }
+  }, [ticketsData]);
 
   const filteredTickets = query
     ? dummyTickets.filter((ticket) => ticket.passengerName.toLowerCase().includes(query))
     : dummyTickets;
 
+  //------------------------- JSX -------------------------
   return (
     <div className="page-container flex flex-col gap-8">
       {/* Top Controls */}

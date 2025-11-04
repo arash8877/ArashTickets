@@ -1,9 +1,5 @@
-using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Builder;
+
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using server.core.autoMapperConfig;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +19,20 @@ builder.Services.AddControllers();              // If you add controllers later
 builder.Services.AddEndpointsApiExplorer();     // Required for non-controller endpoints discovery
 builder.Services.AddOpenApi();                   // .NET 9 built-in OpenAPI doc generation
 builder.Services.AddSwaggerGen();                // provides Swagger UI and extras
+
+// ---------------- CORS ----------------
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000") // your Next.js dev origin
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
+
 
 var app = builder.Build();
 
@@ -47,6 +57,8 @@ if (app.Environment.IsDevelopment())
 
 // If HTTPS redirection causes annoyance in dev, comment this out
 app.UseHttpsRedirection();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthorization();
 

@@ -6,50 +6,40 @@ export interface FetchResponse<T> {
   results: T[];
 }
 
-//------------------------- APIClient Class -------------------------
+//------------------------- Axios Instance -------------------------
 const axiosInstance = axios.create({
   baseURL: "http://localhost:5086/api",
 });
 
-class APIClient<T> {
-  endpoint: string;
+//------------------------- Functional API Client -------------------------
 
-  constructor(endpoint: string) {
-    this.endpoint = endpoint;
-  }
+export const getAll = async <T>(
+  endpoint: string,
+  config?: AxiosRequestConfig
+): Promise<FetchResponse<T>> => {
+  const res = await axiosInstance.get<FetchResponse<T>>(endpoint, config);
+  return res.data;
+};
 
-  // Fetch all items (optionally with filters, pagination, etc.)
-  getAll = (config?: AxiosRequestConfig) => {
-    return axiosInstance
-      .get<FetchResponse<T>>(this.endpoint, config)
-      .then((res) => res.data);
-  };
+export const getOne = async <T>(endpoint: string, id: number | string): Promise<T> => {
+  const res = await axiosInstance.get<T>(`${endpoint}/${id}`);
+  return res.data;
+};
 
-  // Fetch a single item by ID
-  get = (id: number | string) => {
-    return axiosInstance
-      .get<T>(`${this.endpoint}/${id}`)
-      .then((res) => res.data);
-  };
+export const createItem = async <T>(endpoint: string, data: T): Promise<T> => {
+  const res = await axiosInstance.post<T>(endpoint, data);
+  return res.data;
+};
 
-  // Create a new item
-  post = (data: T) => {
-    return axiosInstance
-      .post<T>(this.endpoint, data)
-      .then((res) => res.data);
-  };
+export const updateItem = async <T>(
+  endpoint: string,
+  id: number | string,
+  data: Partial<T>
+): Promise<T> => {
+  const res = await axiosInstance.put<T>(`${endpoint}/${id}`, data);
+  return res.data;
+};
 
-  // Update an existing item
-  put = (id: number | string, data: Partial<T>) => {
-    return axiosInstance
-      .put<T>(`${this.endpoint}/${id}`, data)
-      .then((res) => res.data);
-  };
-
-  // Delete an item
-  delete = (id: number | string) => {
-    return axiosInstance.delete(`${this.endpoint}/${id}`);
-  };
-}
-
-export default APIClient;
+export const deleteItem = async (endpoint: string, id: number | string): Promise<void> => {
+  await axiosInstance.delete(`${endpoint}/${id}`);
+};
