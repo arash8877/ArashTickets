@@ -1,6 +1,7 @@
 "use client";
 
 import EditTicketForm from "@/components/EditTicketForm";
+import Spinner from "@/components/Spinner";
 import useTickets from "@/hooks/useTickets";
 import { use } from "react";
 
@@ -17,13 +18,19 @@ export default function TicketEditPage({ params }: Props) {
   const ticket = allTickets?.find((t) => t.id.toString() === id);
 
   //------------------ JSX --------------------
-  return ticket ? (
+  return (
     <div className="p-6">
-      <EditTicketForm ticket={ticket} />
-    </div>
-  ) : (
-    <div className="flex items-center justify-center h-[60vh] text-center text-lg text-gray-600">
-      🕵️‍♂️ Ticket not found!
+      {isLoading ? (
+        <div className="flex items-center justify-center h-[60vh]">
+          <Spinner />
+        </div>
+      ) : ticket ? (
+        <EditTicketForm ticket={ticket} />
+      ) : (
+        <div className="flex items-center justify-center h-[60vh] text-center text-lg text-gray-600">
+          🕵️‍♂️ Ticket not found!
+        </div>
+      )}
     </div>
   );
 }
