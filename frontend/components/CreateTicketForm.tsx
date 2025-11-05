@@ -17,14 +17,16 @@ const CreateTicketForm = () => {
     formState: { errors },
     reset,
   } = useForm<TicketCreateDto>();
-  const { mutate, isPending, isError, isSuccess, error } = useCreateTicket();
+  const { mutate, isPending} = useCreateTicket();
 
   const onSubmitFunction = async (data: TicketCreateDto) => {
     mutate(data, {
       onSuccess: () => {
-        reset(); // clear form after successful creation
         toast.success("Ticket created successfully!");
         router.push("/tickets");
+      },
+      onError: (error) => {
+        toast.error(error instanceof Error ? error.message : "Something went wrong!");
       },
     });
   };

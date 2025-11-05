@@ -1,26 +1,29 @@
+"use client";
+
 import EditTicketForm from "@/components/EditTicketForm";
-import { dummyTickets } from "@/data/dummyTickets";
+import useTickets from "@/hooks/useTickets";
+import { use } from "react";
 
-export default async function TicketEditPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
+interface Props {
+  params: Promise<{ id: string }>; 
+}
 
-  const ticket = dummyTickets.find((t) => t.id.toString() === id);
+//------------------------- Ticket Edit Page -------------------------
+export default function TicketEditPage({ params }: Props) {
+      const resolvedParams = use(params); 
+    const id = resolvedParams.id;
+  const { data: allTickets } = useTickets();
 
-  if (!ticket) {
-    return (
-      <div className="flex items-center justify-center h-[60vh] text-center text-lg text-gray-600">
-        🕵️‍♂️ Ticket not found!
-      </div>
-    );
-  }
+  const ticket = allTickets?.find((t) => t.id.toString() === id);
 
-  return (
+  //------------------ JSX --------------------
+  return ticket ? (
     <div className="p-6">
       <EditTicketForm ticket={ticket} />
+    </div>
+  ) : (
+    <div className="flex items-center justify-center h-[60vh] text-center text-lg text-gray-600">
+      🕵️‍♂️ Ticket not found!
     </div>
   );
 }

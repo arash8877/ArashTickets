@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { Ticket, TicketCreateDto } from "@/types/types";
+import useUpdateTicket from "@/hooks/useUpdateTicket";
 import Spinner from "./Spinner";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -14,7 +14,7 @@ interface EditTicketFormProps {
 
 //--------------------------- Component ---------------------------//
 const EditTicketForm = ({ ticket }: EditTicketFormProps) => {
-  const [loading, setLoading] = useState(false);
+  const { mutate: updateTicket, isPending } = useUpdateTicket();
   const router = useRouter();
 
   const {
@@ -23,7 +23,7 @@ const EditTicketForm = ({ ticket }: EditTicketFormProps) => {
     formState: { errors },
   } = useForm<TicketCreateDto>({
     defaultValues: {
-      passengerName: ticket.passengerName,
+      passengersName: ticket.passengersName,
       passengerSSN: ticket.passengerSSN,
       from: ticket.from,
       to: ticket.to,
@@ -34,42 +34,30 @@ const EditTicketForm = ({ ticket }: EditTicketFormProps) => {
     },
   });
 
-  const onSubmit = async (data: TicketCreateDto) => {
-    try {
-      setLoading(true);
-
-      // Update the ticket (PUT)
-      await axios.put(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/tickets/${ticket.id}`,
-        data
-      );
-
-      toast.success("🎫 Ticket updated successfully!");
-      router.push("/tickets");
-      router.refresh();
-    } catch (error) {
-      console.error("Failed to update ticket:", error);
-      toast.error("❌ Failed to update ticket");
-    } finally {
-      setLoading(false);
-    }
+  const onSubmit =  (data: TicketCreateDto) => {
+    updateTicket({ id: ticket.id, data: data }, {
+      onSuccess: () => {
+        toast.success("Ticket updated successfully!");
+        router.push("/tickets");
+      },
+      onError: (error) => {
+        toast.error(error instanceof Error ? error.message : "Something went wrong!");
+      },
+    });
   };
-
 
   //--------------------------- JSX ---------------------------//
   return (
     <>
-      {loading && <Spinner />}
+      {isPending && <Spinner />}
       <form
         onSubmit={handleSubmit(onSubmit)}
         noValidate
         className={`bg-white shadow-lg rounded-2xl p-6 w-full max-w-lg mx-auto mt-6 transition-all duration-300 ${
-          loading ? "blur-sm pointer-events-none" : ""
+          isPending ? "blur-sm pointer-events-none" : ""
         }`}
       >
-        <h2 className="text-2xl font-semibold text-sky-800 mb-6 text-center">
-          ✏️ Edit Ticket
-        </h2>
+        <h2 className="text-2xl font-semibold text-sky-800 mb-6 text-center">✏️ Edit Ticket</h2>
 
         {/* Departure Time */}
         <div className="mb-4">
@@ -83,9 +71,7 @@ const EditTicketForm = ({ ticket }: EditTicketFormProps) => {
               required: "Departure time is required",
             })}
           />
-          {errors.time && (
-            <p className="text-red-500 text-sm mt-1">{errors.time.message}</p>
-          )}
+          {errors.time && <p className="text-red-500 text-sm mt-1">{errors.time.message}</p>}
         </div>
 
         {/* Passenger Name */}
@@ -95,9 +81,9 @@ const EditTicketForm = ({ ticket }: EditTicketFormProps) => {
             type="text"
             autoComplete="off"
             className={`w-full border ${
-              errors.passengerName ? "border-red-400" : "border-gray-300"
+              errors.passengersName ? "border-red-400" : "border-gray-300"
             } rounded-lg px-3 py-2 focus:ring-2 focus:ring-sky-500 outline-none`}
-            {...register("passengerName", {
+            {...register("passengersName", {
               required: "Passenger name is required",
               minLength: {
                 value: 3,
@@ -105,10 +91,8 @@ const EditTicketForm = ({ ticket }: EditTicketFormProps) => {
               },
             })}
           />
-          {errors.passengerName && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.passengerName.message}
-            </p>
+          {errors.passengersName && (
+            <p className="text-red-500 text-sm mt-1">{errors.passengersName.message}</p>
           )}
         </div>
 
@@ -126,9 +110,7 @@ const EditTicketForm = ({ ticket }: EditTicketFormProps) => {
             })}
           />
           {errors.passengerSSN && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.passengerSSN.message}
-            </p>
+            <p className="text-red-500 text-sm mt-1">{errors.passengerSSN.message}</p>
           )}
         </div>
 
@@ -143,9 +125,7 @@ const EditTicketForm = ({ ticket }: EditTicketFormProps) => {
             } rounded-lg px-3 py-2 focus:ring-2 focus:ring-sky-500 outline-none`}
             {...register("from", { required: "Departure location is required" })}
           />
-          {errors.from && (
-            <p className="text-red-500 text-sm mt-1">{errors.from.message}</p>
-          )}
+          {errors.from && <p className="text-red-500 text-sm mt-1">{errors.from.message}</p>}
         </div>
 
         {/* To */}
@@ -159,9 +139,7 @@ const EditTicketForm = ({ ticket }: EditTicketFormProps) => {
             } rounded-lg px-3 py-2 focus:ring-2 focus:ring-sky-500 outline-none`}
             {...register("to", { required: "Destination is required" })}
           />
-          {errors.to && (
-            <p className="text-red-500 text-sm mt-1">{errors.to.message}</p>
-          )}
+          {errors.to && <p className="text-red-500 text-sm mt-1">{errors.to.message}</p>}
         </div>
 
         {/* Price */}
@@ -179,9 +157,7 @@ const EditTicketForm = ({ ticket }: EditTicketFormProps) => {
               min: { value: 1, message: "Price must be greater than 0" },
             })}
           />
-          {errors.price && (
-            <p className="text-red-500 text-sm mt-1">{errors.price.message}</p>
-          )}
+          {errors.price && <p className="text-red-500 text-sm mt-1">{errors.price.message}</p>}
         </div>
 
         {/* Buttons */}

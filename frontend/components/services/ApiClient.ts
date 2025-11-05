@@ -26,7 +26,7 @@ export const createTicket = async <T>(endpoint: string, data: T): Promise<T> => 
   return res.data;
 };
 
-export const updateItem = async <T>(
+export const updateTicket = async <T>(
   endpoint: string,
   id: number | string,
   data: Partial<T>
