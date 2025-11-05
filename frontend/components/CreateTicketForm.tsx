@@ -17,7 +17,7 @@ const CreateTicketForm = () => {
     formState: { errors },
     reset,
   } = useForm<TicketCreateDto>();
-  const { mutate, isPending} = useCreateTicket();
+  const { mutate, isPending } = useCreateTicket();
 
   const onSubmitFunction = async (data: TicketCreateDto) => {
     mutate(data, {
@@ -176,13 +176,13 @@ const CreateTicketForm = () => {
           <button
             type="button"
             onClick={() => reset()}
-            className="bg-linear-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white px-6 py-2 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+            className="bg-linear-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white px-6 py-2 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
           >
             Reset
           </button>
           <button
             type="submit"
-            className="bg-linear-to-r from-sky-600 to-blue-600 hover:from-sky-700 hover:to-blue-700 text-white px-6 py-2 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+            className="bg-linear-to-r from-sky-600 to-blue-600 hover:from-sky-700 hover:to-blue-700 text-white px-6 py-2 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
           >
             Submit
           </button>

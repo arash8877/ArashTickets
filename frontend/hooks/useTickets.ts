@@ -8,6 +8,8 @@ const useTickets = () => {
   return useQuery<Ticket[], Error>({
     queryKey: ["tickets"],
     queryFn: () => getAllTicket<Ticket>("tickets"),
+    refetchOnMount: true,
+    staleTime: 0, // forces immediate refetch
   });
 };
 
