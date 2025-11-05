@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { Ticket, TicketCreateDto } from "@/types/types";
 import useUpdateTicket from "@/hooks/useUpdateTicket";
 import Spinner from "./Spinner";
-import axios from "axios";
 import toast from "react-hot-toast";
 
 interface EditTicketFormProps {
@@ -34,16 +33,19 @@ const EditTicketForm = ({ ticket }: EditTicketFormProps) => {
     },
   });
 
-  const onSubmit =  (data: TicketCreateDto) => {
-    updateTicket({ id: ticket.id, data: data }, {
-      onSuccess: () => {
-        toast.success("Ticket updated successfully!");
-        router.push("/tickets");
-      },
-      onError: (error) => {
-        toast.error(error instanceof Error ? error.message : "Something went wrong!");
-      },
-    });
+  const onSubmit = (data: TicketCreateDto) => {
+    updateTicket(
+      { id: ticket.id, data: data },
+      {
+        onSuccess: () => {
+          toast.success("Ticket updated successfully!");
+          router.push("/tickets");
+        },
+        onError: (error) => {
+          toast.error(error instanceof Error ? error.message : "Something went wrong!");
+        },
+      }
+    );
   };
 
   //--------------------------- JSX ---------------------------//
@@ -120,10 +122,14 @@ const EditTicketForm = ({ ticket }: EditTicketFormProps) => {
           <input
             type="text"
             autoComplete="off"
-            className={`w-full border ${
-              errors.from ? "border-red-400" : "border-gray-300"
-            } rounded-lg px-3 py-2 focus:ring-2 focus:ring-sky-500 outline-none`}
-            {...register("from", { required: "Departure location is required" })}
+            disabled
+            value={ticket.from}
+            className={`w-full rounded-lg px-3 py-2 
+             border border-gray-300 
+             bg-gray-100 text-gray-500 
+             cursor-not-allowed 
+             shadow-inner 
+             focus:ring-0 focus:outline-none`}
           />
           {errors.from && <p className="text-red-500 text-sm mt-1">{errors.from.message}</p>}
         </div>
@@ -134,10 +140,14 @@ const EditTicketForm = ({ ticket }: EditTicketFormProps) => {
           <input
             type="text"
             autoComplete="off"
-            className={`w-full border ${
-              errors.to ? "border-red-400" : "border-gray-300"
-            } rounded-lg px-3 py-2 focus:ring-2 focus:ring-sky-500 outline-none`}
-            {...register("to", { required: "Destination is required" })}
+            disabled
+            value={ticket.to}
+            className={`w-full rounded-lg px-3 py-2 
+             border border-gray-300 
+             bg-gray-100 text-gray-500 
+             cursor-not-allowed 
+             shadow-inner 
+             focus:ring-0 focus:outline-none`}
           />
           {errors.to && <p className="text-red-500 text-sm mt-1">{errors.to.message}</p>}
         </div>

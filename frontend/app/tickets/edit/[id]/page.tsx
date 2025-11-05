@@ -5,14 +5,14 @@ import useTickets from "@/hooks/useTickets";
 import { use } from "react";
 
 interface Props {
-  params: Promise<{ id: string }>; 
+  params: Promise<{ id: string }>;
 }
 
 //------------------------- Ticket Edit Page -------------------------
 export default function TicketEditPage({ params }: Props) {
-      const resolvedParams = use(params); 
-    const id = resolvedParams.id;
-  const { data: allTickets } = useTickets();
+  const resolvedParams = use(params);
+  const id = resolvedParams.id;
+  const { data: allTickets, isLoading } = useTickets();
 
   const ticket = allTickets?.find((t) => t.id.toString() === id);
 
