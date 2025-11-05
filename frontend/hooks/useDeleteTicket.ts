@@ -7,10 +7,9 @@ const useDeleteTicket = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (id: number | string) =>
-      deleteItem("tickets", id),
+    mutationFn: (id: number | string) => deleteItem("tickets", id),
     onSuccess: () => {
-      // Refresh the ticket list 
+      // Refresh the ticket list
       queryClient.invalidateQueries({ queryKey: ["tickets"] });
     },
   });

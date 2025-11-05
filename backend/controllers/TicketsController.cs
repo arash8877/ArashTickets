@@ -95,7 +95,7 @@ namespace backend.controllers
  
         // DELETE
         [HttpDelete]
-        [Route("delete/{id}")]
+        [Route("{id}")]
         public async Task<IActionResult> DeleteTicket([FromRoute] long id)
         {
             var ticket = await _context.Tickets.FirstOrDefaultAsync(t => t.Id == id);

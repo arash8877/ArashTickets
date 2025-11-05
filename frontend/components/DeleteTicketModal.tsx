@@ -17,6 +17,7 @@ const DeleteTicketModal = ({ ticketId, onClose }: Props) => {
     deleteTicket(ticketId, {
       onSuccess: () => {
         onClose();
+        toast.success("Ticket deleted successfully!");
         router.push("/tickets");
       },
       onError: (error) => {
