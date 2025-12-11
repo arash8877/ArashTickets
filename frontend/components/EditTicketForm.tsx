@@ -28,7 +28,7 @@ const EditTicketForm = ({ ticket }: EditTicketFormProps) => {
       to: ticket.to,
       price: ticket.price,
       time: ticket.time
-        ? new Date(ticket.time).toISOString().slice(0, 16) // ensure datetime-local works
+        ? new Date(ticket.time).toISOString().slice(0, 16) 
         : "",
     },
   });

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/elahe/Documents/Arash-code/Net/ArashTickets/backend/backend.csproj": {}
+    "/Users/elahe/Documents/Arash-code/Code/Net/ArashTickets/backend/backend.csproj": {}
   },
   "projects": {
-    "/Users/elahe/Documents/Arash-code/Net/ArashTickets/backend/backend.csproj": {
+    "/Users/elahe/Documents/Arash-code/Code/Net/ArashTickets/backend/backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/elahe/Documents/Arash-code/Net/ArashTickets/backend/backend.csproj",
+        "projectUniqueName": "/Users/elahe/Documents/Arash-code/Code/Net/ArashTickets/backend/backend.csproj",
         "projectName": "backend",
-        "projectPath": "/Users/elahe/Documents/Arash-code/Net/ArashTickets/backend/backend.csproj",
+        "projectPath": "/Users/elahe/Documents/Arash-code/Code/Net/ArashTickets/backend/backend.csproj",
         "packagesPath": "/Users/elahe/.nuget/packages/",
-        "outputPath": "/Users/elahe/Documents/Arash-code/Net/ArashTickets/backend/obj/",
+        "outputPath": "/Users/elahe/Documents/Arash-code/Code/Net/ArashTickets/backend/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
@@ -41,7 +41,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net9.0": {
@@ -81,6 +81,20 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[9.0.11, 9.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.osx-x64",
+              "version": "[9.0.11, 9.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[9.0.11, 9.0.11]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -89,7 +103,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -13,7 +13,7 @@ interface Props {
 const Breadcrumb = ({ items = [] }: Props) => {
   return (
     <nav
-      className="flex justify-start items-center gap-2 bg-gradient-to-r from-sky-600 to-blue-700 text-white px-6 py-3 rounded-xl shadow-md"
+      className="flex justify-start items-center gap-2 bg-linear-to-r from-sky-600 to-blue-700 text-white px-6 py-3 rounded-xl shadow-md"
       aria-label="Breadcrumb"
     >
       {/* Home Icon */}
