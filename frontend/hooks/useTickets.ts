@@ -1,4 +1,4 @@
-"use client";
+
 
 import { useQuery } from "@tanstack/react-query";
 import { getAllTicket } from "@/components/services/ApiClient";

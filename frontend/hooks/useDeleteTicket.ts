@@ -1,4 +1,3 @@
-"use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteItem } from "@/components/services/ApiClient";

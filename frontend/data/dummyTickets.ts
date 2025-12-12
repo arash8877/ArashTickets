@@ -4,7 +4,7 @@ export const dummyTickets: Ticket[] = [
   {
     id: 1,
     time: "2025-10-20T08:30:00Z",
-    passengerName: "Mikkel Hansen",
+    passengersName: "Mikkel Hansen",
     passengerSSN: 123456789,
     from: "Copenhagen",
     to: "Aarhus",
@@ -13,7 +13,7 @@ export const dummyTickets: Ticket[] = [
   {
     id: 2,
     time: "2025-11-02T14:15:00Z",
-    passengerName: "Sofie Nielsen",
+    passengersName: "Sofie Nielsen",
     passengerSSN: 987654321,
     from: "Odense",
     to: "Copenhagen",
@@ -22,7 +22,7 @@ export const dummyTickets: Ticket[] = [
   {
     id: 3,
     time: "2025-12-05T19:45:00Z",
-    passengerName: "Lars Pedersen",
+    passengersName: "Lars Pedersen",
     passengerSSN: 555888222,
     from: "Aalborg",
     to: "Aarhus",
@@ -31,7 +31,7 @@ export const dummyTickets: Ticket[] = [
   {
     id: 4,
     time: "2025-10-28T06:00:00Z",
-    passengerName: "Anne Kristensen",
+    passengersName: "Anne Kristensen",
     passengerSSN: 112233445,
     from: "Copenhagen",
     to: "Odense",
@@ -40,7 +40,7 @@ export const dummyTickets: Ticket[] = [
   {
     id: 5,
     time: "2025-11-15T09:30:00Z",
-    passengerName: "Jonas Madsen",
+    passengersName: "Jonas Madsen",
     passengerSSN: 998877665,
     from: "Aarhus",
     to: "Copenhagen",
@@ -49,7 +49,7 @@ export const dummyTickets: Ticket[] = [
   {
     id: 6,
     time: "2025-12-22T16:00:00Z",
-    passengerName: "Emma Sørensen",
+    passengersName: "Emma Sørensen",
     passengerSSN: 223344556,
     from: "Odense",
     to: "Aalborg",
@@ -58,7 +58,7 @@ export const dummyTickets: Ticket[] = [
   {
     id: 7,
     time: "2025-10-30T11:15:00Z",
-    passengerName: "Christian Jensen",
+    passengersName: "Christian Jensen",
     passengerSSN: 667788990,
     from: "Copenhagen",
     to: "Aalborg",
@@ -67,7 +67,7 @@ export const dummyTickets: Ticket[] = [
   {
     id: 8,
     time: "2025-11-05T20:00:00Z",
-    passengerName: "Freja Larsen",
+    passengersName: "Freja Larsen",
     passengerSSN: 334455667,
     from: "Aarhus",
     to: "Odense",
