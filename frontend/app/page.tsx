@@ -4,7 +4,6 @@ const HomePage = () => {
   return (
     <main className="relative min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center bg-linear-to-b from-sky-50 to-sky-100 text-gray-800 px-6 py-12">
       <section className="text-center max-w-3xl space-y-6">
-        <p className="text-sm uppercase tracking-[0.25em] text-blue-500 font-semibold">Arash Ticket</p>
         <h1 className="text-4xl sm:text-6xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-sky-600 to-blue-500">
           Fly with confidence
         </h1>
