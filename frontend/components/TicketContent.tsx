@@ -20,7 +20,7 @@ const TicketsContent = ({ ticketsData }: Props) => {
           <div className="grid grid-cols-12 gap-2 bg-sky-600 text-white text-xs md:text-sm lg:text-base rounded-t-xl p-3">
             <span className="col-span-1 text-center font-semibold">ID</span>
             <span className="col-span-2 text-center font-semibold">Passenger</span>
-            <span className="col-span-2 text-center font-semibold">SSN</span>
+            <span className="col-span-2 text-center font-semibold">CPR</span>
             <span className="col-span-2 text-center font-semibold">From</span>
             <span className="col-span-2 text-center font-semibold">To</span>
             <span className="col-span-1 text-center font-semibold">Price</span>

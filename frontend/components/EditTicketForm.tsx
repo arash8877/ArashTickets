@@ -98,9 +98,9 @@ const EditTicketForm = ({ ticket }: EditTicketFormProps) => {
           )}
         </div>
 
-        {/* Passenger SSN */}
+        {/* CPR Number */}
         <div className="mb-4">
-          <label className="block text-slate-600 mb-1">Passenger SSN</label>
+          <label className="block text-slate-600 mb-1">CPR Number</label>
           <input
             type="text"
             autoComplete="off"
@@ -108,7 +108,7 @@ const EditTicketForm = ({ ticket }: EditTicketFormProps) => {
               errors.passengerSSN ? "border-red-400" : "border-gray-300"
             } rounded-lg px-3 py-2 focus:ring-2 focus:ring-sky-500 outline-none`}
             {...register("passengerSSN", {
-              required: "Passenger SSN is required",
+              required: "CPR Number is required",
             })}
           />
           {errors.passengerSSN && (

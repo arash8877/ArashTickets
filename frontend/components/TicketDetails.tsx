@@ -26,7 +26,7 @@ const TicketDetails = ( { ticket }: TicketDetailsProps) => {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-6">
           <Detail label="Ticket ID" value={`${ticket.id}`} />
           <Detail label="Passenger Name" value={ticket.passengersName} icon={<User className="w-5 h-5 text-sky-700" />} />
-          <Detail label="Passenger SSN" value={ticket.passengerSSN} icon={<CreditCard className="w-5 h-5 text-sky-700" />} />
+          <Detail label="CPR Number" value={ticket.passengerSSN} icon={<CreditCard className="w-5 h-5 text-sky-700" />} />
           <Detail label="Price (DKK)" value={ticket.price.toString()} icon={<CreditCard className="w-5 h-5 text-emerald-600" />} />
           <Detail label="From" value={ticket.from} icon={<PlaneTakeoff className="w-5 h-5 text-sky-700" />} />
           <Detail label="To" value={ticket.to} icon={<PlaneLanding className="w-5 h-5 text-sky-700" />} />
