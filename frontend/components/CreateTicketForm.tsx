@@ -106,8 +106,8 @@ const CreateTicketForm = () => {
             {...register("passengerSSN", {
               required: "CPR Number is required",
               valueAsNumber: true,
-              min: { value: 1000000000, message: "Invalid SSN" },
-              max: { value: 9999999999, message: "Invalid SSN" },
+              min: { value: 1000000000, message: "Invalid CPR Number" },
+              max: { value: 9999999999, message: "Invalid CPR Number" },
             })}
           />
           {errors.passengerSSN && (
